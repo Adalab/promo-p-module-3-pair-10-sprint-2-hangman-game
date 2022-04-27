@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Route, Switch } from 'react-router-dom';
+// import { Route, Switch } from 'react-router-dom';
 
 // api
 import getWordFromApi from '../services/api';
@@ -10,31 +10,35 @@ import '../styles/Letters.scss';
 import '../styles/Form.scss';
 import '../styles/Header.scss';
 
+// Aquí importamos el componente Header
+import Header from './header/Header';
+
 
 function App() {
   const [word, setWord] = useState('');
   const [userLetters, setUserLetters] = useState([]);
   const [lastLetter, setLastLetter] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [numberOfErrors, setNumberOfErrors] = useState(0);
+  // const [loading, setLoading] = useState(false);
+  // const [numberOfErrors, setNumberOfErrors] = useState(0);
   const maxNumberOfErrors = 13;
 
 
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true);
     getWordFromApi().then(word => {
       setWord(word);
-      setLoading(false);
+      // setLoading(false);
     });
   }, []);
 
+
   // events
 
-  const handleWord = value => {
+  /* const handleWord = value => {
     setWord(value);
     setUserLetters([]);
     setLastLetter('');
-  };
+  }; */
 
   const handleKeyDown = ev => {
     // Sabrías decir para qué es esta línea
@@ -90,15 +94,24 @@ function App() {
       userLetters.push(value);
       setUserLetters([...userLetters]);
     }
-
   };
+
+  // Si no funciona con el anterior, sería:
+  /* const handleLastLetter = (value) => {
+    value = value.toLocaleLowerCase();
+    setLastLetter(value);
+
+    userLetters.push(value);
+    setUserLetters([...userLetters]);
+  }; */
+  // pero, en principio, hacen lo mismo
 
 
   return (
     <div className="page">
-      <header>
-        <h1 className="header__title">Juego del ahorcado</h1>
-      </header>
+
+      <Header />
+      
       <main className="main">
         <section>
 
