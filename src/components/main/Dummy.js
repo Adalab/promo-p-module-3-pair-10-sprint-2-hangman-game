@@ -1,9 +1,18 @@
 // Queremos mover a un componente la vista o interfaz del juego, es decir, el HTML, cuya única responsabilidad es pintar los datos bien para que los vea la usuaria.
 
+/*
+Cread un componente llamado Dummy.js.
+Meted en este componente el último <section className="dummy error-0"> del HTML.
+Este componente debe recibir una prop llamada numberOfErrors de tipo number. Con esta prop debéis pintar la clase error-0, error-1...
+El componente App debe importar y usar este componente pasándole el número de errores que ha cometido la jugadora.
+Y como lo que estamos haciendo es refactorizar, si al finalizar todos los cambios el juego sigue funcionando y el muñeco se pinta bien, es que lo habéis hecho todo fetén.
+*/
+
 const Dummy = (props) => {
   return (
     // antes teníamos ${getNumberOfErrors()} porq queríamos el return de la función de App, ahora lo pasamos por prop
     <section className={`dummy error-${props.numberOfErrors}`}>
+
       <span className='error-13 eye'></span>
       <span className='error-12 eye'></span>
       <span className='error-11 line'></span>
@@ -18,6 +27,7 @@ const Dummy = (props) => {
       <span className='error-2  line'></span>
       <span className='error-1  line'></span>
     </section>
+    
   );
 };
 

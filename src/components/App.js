@@ -6,13 +6,16 @@ import getWordFromApi from '../services/api';
 // styles
 import '../styles/App.scss';
 import '../styles/Dummy.scss';
-import '../styles/Letters.scss';
+// import '../styles/Letters.scss';
 import '../styles/Form.scss';
 import '../styles/Header.scss';
 
 // Aquí importamos el componente Header
 import Header from './header/Header';
 import Dummy from './main/Dummy';
+import SolutionLetters from './main/SolutionLetters';
+
+
 
 function App() {
   const [word, setWord] = useState('');
@@ -61,6 +64,7 @@ function App() {
     return errorLetters.length;
   };
 
+/*
   const renderSolutionLetters = () => {
     const wordLetters = word.split('');
     return wordLetters.map((letter, index) => {
@@ -72,6 +76,7 @@ function App() {
       );
     });
   };
+*/
 
   const renderErrorLetters = () => {
     const errorLetters = userLetters.filter(
@@ -112,10 +117,7 @@ function App() {
 
       <main className='main'>
         <section>
-          <div className='solution'>
-            <h2 className='title'>Solución:</h2>
-            <ul className='letters'>{renderSolutionLetters()}</ul>
-          </div>
+        <SolutionLetters THEword={word} THEuserLetters={userLetters}/>
           <div className='error'>
             <h2 className='title'>Letras falladas:</h2>
             <ul className='letters'>{renderErrorLetters()}</ul>
