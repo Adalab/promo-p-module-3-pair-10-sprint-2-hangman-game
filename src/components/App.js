@@ -12,7 +12,7 @@ import '../styles/Header.scss';
 
 // Aquí importamos el componente Header
 import Header from './header/Header';
-
+import Dummy from './main/Dummy';
 
 function App() {
   const [word, setWord] = useState('');
@@ -22,15 +22,13 @@ function App() {
   // const [numberOfErrors, setNumberOfErrors] = useState(0);
   const maxNumberOfErrors = 13;
 
-
   useEffect(() => {
     // setLoading(true);
-    getWordFromApi().then(word => {
+    getWordFromApi().then((word) => {
       setWord(word);
       // setLoading(false);
     });
   }, []);
-
 
   // events
 
@@ -40,25 +38,26 @@ function App() {
     setLastLetter('');
   }; */
 
-  const handleKeyDown = ev => {
+  const handleKeyDown = (ev) => {
     // Sabrías decir para qué es esta línea
     ev.target.setSelectionRange(0, 1);
   };
 
-  const handleChange = ev => {
+  const handleChange = (ev) => {
     let re = /[a-zA-Z]/; //add regular pattern - lesson 3.3 exercise 2
     if (re.test(ev.target.value)) {
       handleLastLetter(ev.target.value);
     }
-
   };
 
-  const handleSubmit = ev => {
+  const handleSubmit = (ev) => {
     ev.preventDefault();
   };
 
   const getNumberOfErrors = () => {
-    const errorLetters = userLetters.filter(letter => word.includes(letter) === false);
+    const errorLetters = userLetters.filter(
+      (letter) => word.includes(letter) === false
+    );
     return errorLetters.length;
   };
 
@@ -67,7 +66,7 @@ function App() {
     return wordLetters.map((letter, index) => {
       const exists = userLetters.includes(letter.toLocaleLowerCase());
       return (
-        <li key={index} className="letter">
+        <li key={index} className='letter'>
           {exists ? letter : ''}
         </li>
       );
@@ -76,18 +75,19 @@ function App() {
 
   const renderErrorLetters = () => {
     const errorLetters = userLetters.filter(
-      letter => word.toLocaleLowerCase().includes(letter.toLocaleLowerCase()) === false
+      (letter) =>
+        word.toLocaleLowerCase().includes(letter.toLocaleLowerCase()) === false
     );
     return errorLetters.map((letter, index) => {
       return (
-        <li key={index} className="letter">
+        <li key={index} className='letter'>
           {letter}
         </li>
       );
     });
   };
 
-  const handleLastLetter = value => {
+  const handleLastLetter = (value) => {
     value = value.toLocaleLowerCase();
     setLastLetter(value);
     if (!userLetters.includes(value)) {
@@ -106,57 +106,39 @@ function App() {
   }; */
   // pero, en principio, hacen lo mismo
 
-
   return (
-    <div className="page">
-
+    <div className='page'>
       <Header />
-      
-      <main className="main">
-        <section>
 
-          <div className="solution">
-            <h2 className="title">Solución:</h2>
-            <ul className="letters">{renderSolutionLetters()}</ul>
+      <main className='main'>
+        <section>
+          <div className='solution'>
+            <h2 className='title'>Solución:</h2>
+            <ul className='letters'>{renderSolutionLetters()}</ul>
           </div>
-          <div className="error">
-            <h2 className="title">Letras falladas:</h2>
-            <ul className="letters">{renderErrorLetters()}</ul>
+          <div className='error'>
+            <h2 className='title'>Letras falladas:</h2>
+            <ul className='letters'>{renderErrorLetters()}</ul>
           </div>
-          <form className="form" onSubmit={handleSubmit}>
-            <label className="title" htmlFor="last-letter">
+          <form className='form' onSubmit={handleSubmit}>
+            <label className='title' htmlFor='last-letter'>
               Escribe una letra:
-      </label>
+            </label>
             <input
               autoFocus
-              autoComplete="off"
-              className="form__input"
-              maxLength="1"
-              type="text"
-              name="last-letter"
-              id="last-letter"
+              autoComplete='off'
+              className='form__input'
+              maxLength='1'
+              type='text'
+              name='last-letter'
+              id='last-letter'
               value={lastLetter}
               onKeyDown={handleKeyDown}
               onChange={handleChange}
             />
           </form>
-
         </section>
-        <section className={`dummy error-${getNumberOfErrors()}`}>
-          <span className="error-13 eye"></span>
-          <span className="error-12 eye"></span>
-          <span className="error-11 line"></span>
-          <span className="error-10 line"></span>
-          <span className="error-9  line"></span>
-          <span className="error-8  line"></span>
-          <span className="error-7  line"></span>
-          <span className="error-6  head"></span>
-          <span className="error-5  line"></span>
-          <span className="error-4  line"></span>
-          <span className="error-3  line"></span>
-          <span className="error-2  line"></span>
-          <span className="error-1  line"></span>
-        </section>
+        <Dummy numberOfErrors={getNumberOfErrors()} />
       </main>
     </div>
   );
