@@ -13,6 +13,7 @@ import '../styles/Header.scss';
 // Aquí importamos el componente Header
 import Header from './header/Header';
 import Dummy from './main/Dummy';
+import ErrorLetters from './main/ErrorLetters';
 import SolutionLetters from './main/SolutionLetters';
 
 
@@ -117,11 +118,12 @@ function App() {
 
       <main className='main'>
         <section>
-        <SolutionLetters THEword={word} THEuserLetters={userLetters}/>
-          <div className='error'>
-            <h2 className='title'>Letras falladas:</h2>
-            <ul className='letters'>{renderErrorLetters()}</ul>
-          </div>
+        <SolutionLetters 
+        THEword={word} 
+        THEuserLetters={userLetters}/>
+        <ErrorLetters 
+        renderErrorLetters={renderErrorLetters}
+         />
           <form className='form' onSubmit={handleSubmit}>
             <label className='title' htmlFor='last-letter'>
               Escribe una letra:
@@ -140,7 +142,7 @@ function App() {
             />
           </form>
         </section>
-        <Dummy numberOfErrors={getNumberOfErrors()} />
+        <Dummy numberOfErrors={getNumberOfErrors} />
       </main>
     </div>
   );
