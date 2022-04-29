@@ -14,6 +14,7 @@ import '../styles/Header.scss';
 import Header from './header/Header';
 import Dummy from './main/Dummy';
 import ErrorLetters from './main/ErrorLetters';
+import Form from './main/Form';
 import SolutionLetters from './main/SolutionLetters';
 
 
@@ -42,20 +43,11 @@ function App() {
     setLastLetter('');
   }; */
 
-  const handleKeyDown = (ev) => {
-    // Sabrías decir para qué es esta línea
-    ev.target.setSelectionRange(0, 1);
-  };
-
-  const handleChange = (ev) => {
+  const handleChangeInput = (valueInput) => {
     let re = /[a-zA-Z]/; //add regular pattern - lesson 3.3 exercise 2
-    if (re.test(ev.target.value)) {
-      handleLastLetter(ev.target.value);
+    if (re.test(valueInput)) {
+      handleLastLetter(valueInput);
     }
-  };
-
-  const handleSubmit = (ev) => {
-    ev.preventDefault();
   };
 
   const getNumberOfErrors = () => {
@@ -78,20 +70,7 @@ function App() {
     });
   };
 */
-
-  const renderErrorLetters = () => {
-    const errorLetters = userLetters.filter(
-      (letter) =>
-        word.toLocaleLowerCase().includes(letter.toLocaleLowerCase()) === false
-    );
-    return errorLetters.map((letter, index) => {
-      return (
-        <li key={index} className='letter'>
-          {letter}
-        </li>
-      );
-    });
-  };
+ 
 
   const handleLastLetter = (value) => {
     value = value.toLocaleLowerCase();
@@ -118,31 +97,15 @@ function App() {
 
       <main className='main'>
         <section>
-        <SolutionLetters 
-        THEword={word} 
-        THEuserLetters={userLetters}/>
-        <ErrorLetters 
-        renderErrorLetters={renderErrorLetters}
-         />
-          <form className='form' onSubmit={handleSubmit}>
-            <label className='title' htmlFor='last-letter'>
-              Escribe una letra:
-            </label>
-            <input
-              autoFocus
-              autoComplete='off'
-              className='form__input'
-              maxLength='1'
-              type='text'
-              name='last-letter'
-              id='last-letter'
-              value={lastLetter}
-              onKeyDown={handleKeyDown}
-              onChange={handleChange}
-            />
-          </form>
+          <SolutionLetters 
+          THEword={word} 
+          THEuserLetters={userLetters}/>
+          <ErrorLetters 
+          THEuserLetters={userLetters} THEword={word}
+          />
+          <Form handleChange={handleChangeInput}/>
         </section>
-        <Dummy numberOfErrors={getNumberOfErrors} />
+        <Dummy THElastLetter={lastLetter} numberOfErrors={getNumberOfErrors} />
       </main>
     </div>
   );
